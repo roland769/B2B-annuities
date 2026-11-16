@@ -32,36 +32,36 @@ button:disabled { cursor: not-allowed; }
 input::placeholder, textarea::placeholder { color: #7C8AA3; }
 [hidden] { display: none !important; }
 
-header { border-bottom: 1px solid #1A2438; padding: 20px clamp(20px, 4vw, 48px); }
+header { border-bottom: 1px solid #1A2438; padding: 14px clamp(16px, 4vw, 48px); }
 .brand { display: flex; align-items: center; gap: 10px; }
 .brand svg { stroke: var(--accent); }
 .brand span { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.14em; }
 
-main { flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: clamp(40px, 6vw, 72px) clamp(16px, 4vw, 48px) clamp(48px, 6vw, 80px); }
-.hero { display: flex; flex-direction: column; align-items: center; gap: 20px; max-width: 1000px; text-align: center; }
-.eyebrow { font-size: 15px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent); }
-h1 { font-size: clamp(32px, 5vw, 60px); line-height: 1.15; }
+main { flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 2.4vw, 28px); padding: clamp(20px, 2.4vw, 32px) clamp(16px, 4vw, 48px) clamp(40px, 5vw, 64px); }
+.hero { display: flex; flex-direction: column; align-items: center; gap: clamp(10px, 1.2vw, 14px); max-width: 1040px; text-align: center; }
+.eyebrow { font-size: clamp(11px, 1vw, 13px); font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(22px, 3.1vw, 40px); line-height: 1.18; }
 h1 span { color: var(--accent); }
-.lede { max-width: 680px; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.5; color: var(--muted); }
+.lede { max-width: 680px; font-size: clamp(15px, 1.3vw, 18px); line-height: 1.45; color: var(--muted); }
 
-.card { width: 100%; max-width: 860px; padding: clamp(24px, 4vw, 48px); background: var(--card); border: 1px solid var(--accent-border); border-radius: 24px; box-shadow: 0 0 48px var(--accent-glow); }
-#form { display: flex; flex-direction: column; gap: 36px; }
-.progress { display: flex; flex-direction: column; gap: 14px; }
+.card { width: 100%; max-width: 860px; padding: clamp(20px, 2.6vw, 32px); background: var(--card); border: 1px solid var(--accent-border); border-radius: 20px; box-shadow: 0 0 48px var(--accent-glow); }
+#form { display: flex; flex-direction: column; gap: clamp(18px, 2vw, 24px); }
+.progress { display: flex; flex-direction: column; gap: 10px; }
 .progress-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 16px; }
 #progress-label { font-weight: 500; color: var(--muted); }
 #pct { font-weight: 600; color: var(--accent); }
 .track { height: 5px; border-radius: 3px; background: var(--line); overflow: hidden; }
 #bar { height: 100%; border-radius: 3px; background: var(--accent); transition: width 0.25s ease; }
 
-.body { display: flex; flex-direction: column; gap: 28px; }
-.heading { display: flex; flex-direction: column; gap: 10px; }
-h2 { font-size: clamp(21px, 2.4vw, 27px); line-height: 1.3; }
-#sub { font-size: 17px; line-height: 1.45; color: var(--muted); }
+.body { display: flex; flex-direction: column; gap: 20px; }
+.heading { display: flex; flex-direction: column; gap: 8px; }
+h2 { font-size: clamp(19px, 2vw, 24px); line-height: 1.3; }
+#sub { font-size: 16px; line-height: 1.45; color: var(--muted); }
 
-.options { display: flex; gap: 14px; }
+.options { display: flex; gap: 12px; }
 .options.single { flex-direction: column; align-items: flex-start; }
 .options.multi { flex-wrap: wrap; }
-.option { display: flex; align-items: center; gap: 14px; min-height: 56px; max-width: 100%; padding: 14px 22px 14px 18px; text-align: left; font-size: 17px; line-height: 1.35; color: #fff; background: var(--field); border: 1px solid var(--field-border); border-radius: 12px; }
+.option { display: flex; align-items: center; gap: 14px; min-height: 52px; max-width: 100%; padding: 12px 22px 12px 18px; text-align: left; font-size: 17px; line-height: 1.35; color: #fff; background: var(--field); border: 1px solid var(--field-border); border-radius: 12px; }
 .options.multi .option { flex: 1 1 260px; }
 .option[aria-pressed="true"] { background: var(--accent-tint); border-color: var(--accent); }
 .mark { flex-shrink: 0; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--faint); border-radius: 50%; }
@@ -74,16 +74,16 @@ h2 { font-size: clamp(21px, 2.4vw, 27px); line-height: 1.3; }
 .options.multi .option[aria-pressed="true"] .mark svg { stroke: var(--ground); }
 
 textarea, .text-input { width: 100%; font: inherit; color: #fff; background: var(--field); border: 1px solid var(--accent-border); border-radius: 12px; }
-textarea { min-height: 160px; padding: 18px; resize: vertical; font-size: 18px; line-height: 1.5; }
-.text-input { height: 64px; padding: 0 18px; font-size: 19px; }
+textarea { min-height: 130px; padding: 18px; resize: vertical; font-size: 18px; line-height: 1.5; }
+.text-input { height: 58px; padding: 0 18px; font-size: 19px; }
 .consent { display: flex; align-items: flex-start; gap: 14px; }
 .consent input { flex-shrink: 0; width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--accent); }
 .consent label { font-size: 15px; line-height: 1.6; color: var(--muted); }
 .consent a { color: var(--accent); }
 
-.nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 32px; border-top: 1px solid var(--line); }
-#back { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 8px; font-size: 16px; font-weight: 500; color: var(--muted); background: transparent; border: none; }
-#next { display: flex; align-items: center; gap: 12px; min-height: 60px; margin-left: auto; padding: 0 32px; font-size: 17px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ground); background: var(--accent); border: none; border-radius: 10px; }
+.nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: clamp(16px, 2vw, 24px); border-top: 1px solid var(--line); }
+#back { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 8px; font-size: 16px; font-weight: 500; color: var(--muted); background: transparent; border: none; }
+#next { display: flex; align-items: center; gap: 12px; min-height: 54px; margin-left: auto; padding: 0 32px; font-size: 17px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ground); background: var(--accent); border: none; border-radius: 10px; }
 #next:disabled { color: var(--faint); background: #1E2A44; }
 
 #done { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 32px 0; text-align: center; }
@@ -162,7 +162,7 @@ footer .small { font-size: 13px; color: var(--faint); }
 (function () {
   var DETAIL = 'Be as detailed as possible so we can help you the best';
   var STEPS = [
-    { key: 'contracted', type: 'single', label: 'Eligibility', q: 'Are you currently contracted to sell annuities?', sub: 'Select one', opts: ['Yes, I am contracted and can write business today', 'No, I am not contracted yet'] },
+    { key: 'contracted', type: 'single', label: 'Eligibility', q: 'Are you currently contracted to sell annuities?', sub: 'Select one', opts: ['Yes, I’m contracted', 'No, not yet'] },
     { key: 'products', type: 'multi', label: 'Products', q: 'What are you primarily selling?', sub: 'Check all that apply', opts: ['Annuity', 'Cash value', 'Whole life', 'AUM', 'IUL', 'Other'] },
     { key: 'production', type: 'single', label: 'Production', q: 'What’s your current annual annuity production?', sub: 'Select one', opts: ['Less than $3 million', '$3 to $10 million', '$10 to $30 million', '$30 million plus'] },
     { key: 'commission', type: 'single', label: 'Commission', q: 'What is your commission percentage on an annuity sale?', sub: 'If you sold a $100,000 annuity, what would your commission be?', opts: ['4% or less ($4,000 or less)', '5% ($5,000)', '6% ($6,000)', '7% ($7,000)', '8% or higher ($8,000 or higher)'] },
