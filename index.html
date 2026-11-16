@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elevate — FIA client survey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+:root {
+  --accent: #6EE7B7;
+  --accent-border: rgba(110, 231, 183, 0.45);
+  --accent-glow: rgba(110, 231, 183, 0.1);
+  --accent-tint: rgba(110, 231, 183, 0.1);
+  --ground: #0B1220;
+  --card: #101A2C;
+  --field: #16213A;
+  --line: #1C2740;
+  --field-border: #2A3855;
+  --muted: #9AA7BD;
+  --faint: #8E9BB3;
+}
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; background: var(--ground); color: #fff; font-family: 'Inter', system-ui, sans-serif; }
+h1, h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; margin: 0; }
+p { margin: 0; }
+a { color: var(--muted); }
+a:hover { color: #E6ECF5; }
+button { font: inherit; cursor: pointer; }
+button:disabled { cursor: not-allowed; }
+input::placeholder, textarea::placeholder { color: #7C8AA3; }
+[hidden] { display: none !important; }
+
+header { border-bottom: 1px solid #1A2438; padding: 20px clamp(20px, 4vw, 48px); }
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand svg { stroke: var(--accent); }
+.brand span { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.14em; }
+
+main { flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: clamp(40px, 6vw, 72px) clamp(16px, 4vw, 48px) clamp(48px, 6vw, 80px); }
+.hero { display: flex; flex-direction: column; align-items: center; gap: 20px; max-width: 1000px; text-align: center; }
+.eyebrow { font-size: 15px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(32px, 5vw, 60px); line-height: 1.15; }
+h1 span { color: var(--accent); }
+.lede { max-width: 680px; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.5; color: var(--muted); }
+
+.card { width: 100%; max-width: 860px; padding: clamp(24px, 4vw, 48px); background: var(--card); border: 1px solid var(--accent-border); border-radius: 24px; box-shadow: 0 0 48px var(--accent-glow); }
+#form { display: flex; flex-direction: column; gap: 36px; }
+.progress { display: flex; flex-direction: column; gap: 14px; }
+.progress-row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 16px; }
+#progress-label { font-weight: 500; color: var(--muted); }
+#pct { font-weight: 600; color: var(--accent); }
+.track { height: 5px; border-radius: 3px; background: var(--line); overflow: hidden; }
+#bar { height: 100%; border-radius: 3px; background: var(--accent); transition: width 0.25s ease; }
+
+.body { display: flex; flex-direction: column; gap: 28px; }
+.heading { display: flex; flex-direction: column; gap: 10px; }
+h2 { font-size: clamp(21px, 2.4vw, 27px); line-height: 1.3; }
+#sub { font-size: 17px; line-height: 1.45; color: var(--muted); }
+
+.options { display: flex; gap: 14px; }
+.options.single { flex-direction: column; align-items: flex-start; }
+.options.multi { flex-wrap: wrap; }
+.option { display: flex; align-items: center; gap: 14px; min-height: 56px; max-width: 100%; padding: 14px 22px 14px 18px; text-align: left; font-size: 17px; line-height: 1.35; color: #fff; background: var(--field); border: 1px solid var(--field-border); border-radius: 12px; }
+.options.multi .option { flex: 1 1 260px; }
+.option[aria-pressed="true"] { background: var(--accent-tint); border-color: var(--accent); }
+.mark { flex-shrink: 0; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--faint); border-radius: 50%; }
+.options.multi .mark { border-radius: 5px; }
+.mark i { width: 8px; height: 8px; border-radius: 50%; }
+.mark svg { stroke: transparent; }
+.option[aria-pressed="true"] .mark { border-color: var(--accent); }
+.options.single .option[aria-pressed="true"] .mark i { background: var(--accent); }
+.options.multi .option[aria-pressed="true"] .mark { background: var(--accent); }
+.options.multi .option[aria-pressed="true"] .mark svg { stroke: var(--ground); }
+
+textarea, .text-input { width: 100%; font: inherit; color: #fff; background: var(--field); border: 1px solid var(--accent-border); border-radius: 12px; }
+textarea { min-height: 160px; padding: 18px; resize: vertical; font-size: 18px; line-height: 1.5; }
+.text-input { height: 64px; padding: 0 18px; font-size: 19px; }
+.consent { display: flex; align-items: flex-start; gap: 14px; }
+.consent input { flex-shrink: 0; width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--accent); }
+.consent label { font-size: 15px; line-height: 1.6; color: var(--muted); }
+.consent a { color: var(--accent); }
+
+.nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 32px; border-top: 1px solid var(--line); }
+#back { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 8px; font-size: 16px; font-weight: 500; color: var(--muted); background: transparent; border: none; }
+#next { display: flex; align-items: center; gap: 12px; min-height: 60px; margin-left: auto; padding: 0 32px; font-size: 17px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ground); background: var(--accent); border: none; border-radius: 10px; }
+#next:disabled { color: var(--faint); background: #1E2A44; }
+
+#done { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 32px 0; text-align: center; }
+#done svg { stroke: var(--accent); }
+#done h2 { font-size: clamp(24px, 3vw, 32px); }
+#done p { max-width: 520px; font-size: 18px; line-height: 1.5; color: var(--muted); }
+
+footer { border-top: 1px solid #1A2438; padding: 32px clamp(16px, 4vw, 48px) 40px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+footer p { font-size: 15px; color: var(--muted); }
+footer .small { font-size: 13px; color: var(--faint); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14l8-8 8 8"/><path d="M4 20l8-8 8 8"/></svg>
+    <span>ELEVATE</span>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <p class="eyebrow">Licensed annuity agents &amp; advisors</p>
+    <h1>Get +10 New FIA Clients With $250K–$10M in Liquid Investable Assets Per Month, <span>100% Performance-Based</span></h1>
+    <p class="lede">Free 30-second survey to see if you qualify. No obligation.</p>
+  </div>
+
+  <section class="card" aria-label="Survey">
+    <div id="form">
+      <div class="progress">
+        <div class="progress-row"><span id="progress-label"></span><span id="pct"></span></div>
+        <div class="track" id="track" role="progressbar" aria-label="Survey progress" aria-valuemin="0" aria-valuemax="100"><div id="bar"></div></div>
+      </div>
+
+      <div class="body">
+        <div class="heading">
+          <h2 id="question"></h2>
+          <p id="sub"></p>
+        </div>
+        <div id="options" class="options" hidden></div>
+        <textarea id="textarea" rows="5" hidden></textarea>
+        <input id="input" class="text-input" hidden>
+        <div id="consent" class="consent" hidden>
+          <input id="sms" type="checkbox">
+          <label for="sms">I agree to receive marketing SMS messages from Elevate. Message frequency varies. Message and data rates may apply. Reply STOP to unsubscribe or HELP for assistance. View our <a href="#privacy">Privacy Policy</a> and <a href="#terms">Terms of Service</a>.</label>
+        </div>
+      </div>
+
+      <div class="nav">
+        <button type="button" id="back" hidden>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/></svg>
+          <span>Back</span>
+        </button>
+        <button type="button" id="next" disabled>
+          <span id="next-label">Continue</span>
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="done" hidden>
+      <svg aria-hidden="true" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>
+      <h2>Survey received</h2>
+      <p>Thank you. Our team will call you within [YOUR RESPONSE TIME] to go over your results.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Elevate. All rights reserved. · <a href="#privacy">Privacy Policy</a> · <a href="#terms">Terms of Service</a></p>
+  <p class="small">Outcomes depend on your market and your own follow-up. Earlier results are no promise of future ones.</p>
+</footer>
+
+<script>
+(function () {
+  var DETAIL = 'Be as detailed as possible so we can help you the best';
+  var STEPS = [
+    { key: 'contracted', type: 'single', label: 'Eligibility', q: 'Are you currently contracted to sell annuities?', sub: 'Select one', opts: ['Yes, I am contracted and can write business today', 'No, I am not contracted yet'] },
+    { key: 'products', type: 'multi', label: 'Products', q: 'What are you primarily selling?', sub: 'Check all that apply', opts: ['Annuity', 'Cash value', 'Whole life', 'AUM', 'IUL', 'Other'] },
+    { key: 'production', type: 'single', label: 'Production', q: 'What’s your current annual annuity production?', sub: 'Select one', opts: ['Less than $3 million', '$3 to $10 million', '$10 to $30 million', '$30 million plus'] },
+    { key: 'commission', type: 'single', label: 'Commission', q: 'What is your commission percentage on an annuity sale?', sub: 'If you sold a $100,000 annuity, what would your commission be?', opts: ['4% or less ($4,000 or less)', '5% ($5,000)', '6% ($6,000)', '7% ($7,000)', '8% or higher ($8,000 or higher)'] },
+    { key: 'investment', type: 'single', label: 'Investment', q: 'Do you currently have access to at least $5,000 in cash or credit to invest in your business?', sub: 'Just to be clear, the program is not $5K', opts: ['Yes', 'No'] },
+    { key: 'goal', type: 'text', label: 'Goals', q: 'What is your primary goal for your business?', sub: DETAIL, ph: 'e.g., I want to scale my annuity production to $10M+ annually while reducing my marketing spend...' },
+    { key: 'challenge', type: 'text', label: 'Challenges', q: 'What is the biggest thing holding you back from hitting your goal?', sub: DETAIL, ph: 'e.g., I can’t find a reliable source of qualified appointments with high-net-worth retirees...' },
+    { key: 'firstName', type: 'input', label: 'First Name', q: 'What’s your first name?', sub: 'So our team knows who they’re talking to', ph: 'John', input: 'text', ac: 'given-name' },
+    { key: 'lastName', type: 'input', label: 'Last Name', q: 'What’s your last name?', sub: 'We keep your information private and secure', ph: 'Smith', input: 'text', ac: 'family-name' },
+    { key: 'email', type: 'input', label: 'Email', q: 'What’s your best email address?', sub: 'We’ll send your results here', ph: 'john@youragency.com', input: 'email', ac: 'email' },
+    { key: 'phone', type: 'input', label: 'Phone', q: 'What’s the best phone number to reach you?', sub: 'Our team will call to discuss your results — no spam, ever', ph: '(555) 123-4567', input: 'tel', ac: 'tel', phone: true }
+  ];
+
+  var step = 0;
+  var answers = {};
+  var $ = function (id) { return document.getElementById(id); };
+  var optionsEl = $('options'), textarea = $('textarea'), input = $('input'), nextBtn = $('next');
+
+  function isValid() {
+    var s = STEPS[step], a = answers[s.key];
+    if (s.type === 'single') return a !== undefined;
+    if (s.type === 'multi') return Array.isArray(a) && a.length > 0;
+    var v = (a || '').trim();
+    if (s.input === 'email') return /.+@.+\..+/.test(v);
+    if (s.input === 'tel') return v.replace(/\D/g, '').length >= 7;
+    return v.length > 0;
+  }
+
+  function refresh() { nextBtn.disabled = !isValid(); }
+
+  function renderOptions(s) {
+    optionsEl.innerHTML = '';
+    optionsEl.className = 'options ' + s.type;
+    s.opts.forEach(function (label) {
+      var a = answers[s.key];
+      var selected = s.type === 'multi' ? (a || []).indexOf(label) !== -1 : a === label;
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'option';
+      b.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      var mark = document.createElement('span');
+      mark.className = 'mark';
+      mark.setAttribute('aria-hidden', 'true');
+      mark.innerHTML = s.type === 'multi'
+        ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>'
+        : '<i></i>';
+      var text = document.createElement('span');
+      text.textContent = label;
+      b.appendChild(mark);
+      b.appendChild(text);
+      b.addEventListener('click', function () {
+        if (s.type === 'multi') {
+          var cur = (answers[s.key] || []).slice();
+          var i = cur.indexOf(label);
+          if (i === -1) cur.push(label); else cur.splice(i, 1);
+          answers[s.key] = cur;
+        } else {
+          answers[s.key] = label;
+        }
+        renderOptions(s);
+        refresh();
+      });
+      optionsEl.appendChild(b);
+    });
+  }
+
+  function render() {
+    var s = STEPS[step];
+    var pct = step < 7 ? Math.round(((step + 1) / 7) * 100) : 100;
+    $('progress-label').textContent = step < 7 ? 'Step ' + (step + 1) + ' of 7: ' + s.label : 'Almost done: ' + s.label;
+    $('pct').textContent = pct + '%';
+    $('bar').style.width = pct + '%';
+    $('track').setAttribute('aria-valuenow', pct);
+    $('question').textContent = s.q;
+    $('sub').textContent = s.sub;
+
+    var isChoice = s.type === 'single' || s.type === 'multi';
+    optionsEl.hidden = !isChoice;
+    textarea.hidden = s.type !== 'text';
+    input.hidden = s.type !== 'input';
+    $('consent').hidden = !s.phone;
+
+    if (isChoice) renderOptions(s);
+    if (s.type === 'text') {
+      textarea.placeholder = s.ph;
+      textarea.value = answers[s.key] || '';
+      textarea.setAttribute('aria-label', s.q);
+      textarea.focus();
+    }
+    if (s.type === 'input') {
+      input.type = s.input;
+      input.autocomplete = s.ac;
+      input.placeholder = s.ph;
+      input.value = answers[s.key] || '';
+      input.setAttribute('aria-label', s.q);
+      input.focus();
+    }
+
+    $('back').hidden = step === 0;
+    $('next-label').textContent = step === STEPS.length - 1 ? 'See my results' : 'Continue';
+    refresh();
+  }
+
+  function next() {
+    if (!isValid()) return;
+    if (step < STEPS.length - 1) { step += 1; render(); return; }
+    answers.smsConsent = $('sms').checked;
+    // TODO: send `answers` to your CRM or form endpoint here.
+    $('form').hidden = true;
+    $('done').hidden = false;
+  }
+
+  textarea.addEventListener('input', function () { answers[STEPS[step].key] = textarea.value; refresh(); });
+  input.addEventListener('input', function () { answers[STEPS[step].key] = input.value; refresh(); });
+  input.addEventListener('keydown', function (e) { if (e.key === 'Enter') next(); });
+  nextBtn.addEventListener('click', next);
+  $('back').addEventListener('click', function () { if (step > 0) { step -= 1; render(); } });
+
+  render();
+})();
+</script>
+</body>
+</html>
