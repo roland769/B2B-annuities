@@ -283,7 +283,7 @@ footer .small { font-size: 13px; color: var(--faint); }
     // TODO: send `answers` to your CRM or form endpoint here (before the redirect).
     if (answers.qualified) {
       try { sessionStorage.setItem('elevateSurvey', JSON.stringify(answers)); } catch (e) {}
-      window.location.href = 'book.html';
+      window.location.href = 'calendar/';
       return;
     }
     $('form').hidden = true;
