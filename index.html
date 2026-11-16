@@ -148,7 +148,7 @@ footer .small { font-size: 13px; color: var(--faint); }
     <div id="done" hidden>
       <svg aria-hidden="true" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>
       <h2>Survey received</h2>
-      <p>Thank you. Our team will call you within [YOUR RESPONSE TIME] to go over your results.</p>
+      <p>Thank you. We’ll review your answers and get in touch if there’s a fit.</p>
     </div>
   </section>
 </main>
@@ -188,6 +188,16 @@ footer .small { font-size: 13px; color: var(--faint); }
     if (s.input === 'email') return /.+@.+\..+/.test(v);
     if (s.input === 'tel') return v.replace(/\D/g, '').length >= 7;
     return v.length > 0;
+  }
+
+  function choice(key) {
+    for (var i = 0; i < STEPS.length; i++) if (STEPS[i].key === key) return STEPS[i].opts.indexOf(answers[key]);
+    return -1;
+  }
+
+  // Qualified: contracted, $3M+ annual production, and access to $5K.
+  function isQualified() {
+    return choice('contracted') === 0 && choice('production') >= 1 && choice('investment') === 0;
   }
 
   function refresh() { nextBtn.disabled = !isValid(); }
@@ -269,7 +279,13 @@ footer .small { font-size: 13px; color: var(--faint); }
     if (!isValid()) return;
     if (step < STEPS.length - 1) { step += 1; render(); return; }
     answers.smsConsent = $('sms').checked;
-    // TODO: send `answers` to your CRM or form endpoint here.
+    answers.qualified = isQualified();
+    // TODO: send `answers` to your CRM or form endpoint here (before the redirect).
+    if (answers.qualified) {
+      try { sessionStorage.setItem('elevateSurvey', JSON.stringify(answers)); } catch (e) {}
+      window.location.href = 'book.html';
+      return;
+    }
     $('form').hidden = true;
     $('done').hidden = false;
   }
