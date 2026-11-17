@@ -67,5 +67,47 @@ footer .links { color: #5B6678; }
   } catch (e) {}
 })();
 </script>
+<script>
+(function () {
+  // Diagnostic mode: open /calendar/?debug=1 to list every message the booking
+  // widget sends to this page. Nothing is shown or recorded without ?debug=1.
+  if (new URLSearchParams(window.location.search).get('debug') !== '1') return;
+  var lines = [];
+  var panel = document.createElement('div');
+  panel.setAttribute('style', 'position:fixed;left:0;right:0;bottom:0;z-index:9999;max-height:45vh;display:flex;flex-direction:column;background:#0B1220;color:#E6ECF5;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;border-top:2px solid #6EE7B7');
+  var bar = document.createElement('div');
+  bar.setAttribute('style', 'display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px;border-bottom:1px solid #1C2740');
+  var title = document.createElement('strong');
+  title.textContent = 'Diagnostic: 0 message(s) from the calendar';
+  var copy = document.createElement('button');
+  copy.type = 'button';
+  copy.textContent = 'Copy all';
+  copy.setAttribute('style', 'min-height:36px;padding:0 14px;font:inherit;font-weight:600;color:#0B1220;background:#6EE7B7;border:none;border-radius:6px;cursor:pointer');
+  var log = document.createElement('pre');
+  log.setAttribute('style', 'margin:0;padding:10px 12px;overflow:auto;white-space:pre-wrap;word-break:break-word;user-select:text');
+  log.textContent = 'Waiting for messages. Book a test appointment above.';
+  bar.appendChild(title); bar.appendChild(copy);
+  panel.appendChild(bar); panel.appendChild(log);
+  document.body.appendChild(panel);
+  document.body.style.paddingBottom = '45vh';
+
+  window.addEventListener('message', function (e) {
+    var data;
+    try { data = typeof e.data === 'string' ? e.data : JSON.stringify(e.data, null, 2); }
+    catch (err) { data = '[unserializable: ' + err.message + ']'; }
+    lines.push('#' + (lines.length + 1) + '  ' + new Date().toISOString() + '  origin=' + e.origin + '\n' + data);
+    title.textContent = 'Diagnostic: ' + lines.length + ' message(s) from the calendar';
+    log.textContent = lines.join('\n\n');
+    log.scrollTop = log.scrollHeight;
+  });
+
+  copy.addEventListener('click', function () {
+    var text = lines.join('\n\n');
+    var done = function () { copy.textContent = 'Copied'; setTimeout(function () { copy.textContent = 'Copy all'; }, 1500); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function () { window.prompt('Copy:', text); });
+    else window.prompt('Copy:', text);
+  });
+})();
+</script>
 </body>
 </html>
