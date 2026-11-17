@@ -46,7 +46,27 @@ footer .links { color: #5B6678; }
   </div>
 
   <section class="calendar" aria-label="Booking calendar">
-    <iframe src="https://api.leadconnectorhq.com/widget/booking/lpdw3HOjX5UJkpo6A5Q7" title="Book your demo" allow="payment" style="display: block; width: 100%; min-height: 640px; border: none; overflow: hidden;" scrolling="no" id="lpdw3HOjX5UJkpo6A5Q7_1794861754919"></iframe>
+    <iframe data-src="https://api.leadconnectorhq.com/widget/booking/lpdw3HOjX5UJkpo6A5Q7" title="Book your demo" allow="payment" style="display: block; width: 100%; min-height: 640px; border: none; overflow: hidden;" scrolling="no" id="lpdw3HOjX5UJkpo6A5Q7_1794861754919"></iframe>
+    <script>
+    (function () {
+      // Loads the booking widget, pre-filled with the contact details given in the survey.
+      var frame = document.getElementById('lpdw3HOjX5UJkpo6A5Q7_1794861754919');
+      var url = frame.getAttribute('data-src');
+      try {
+        var data = JSON.parse(sessionStorage.getItem('elevateSurvey') || 'null') || {};
+        var phone = String(data.phone || '').replace(/\D/g, '');
+        if (phone.length === 10) phone = '+1' + phone;
+        else if (phone.length === 11 && phone.charAt(0) === '1') phone = '+' + phone;
+        var fields = { first_name: data.firstName, last_name: data.lastName, email: data.email, phone: phone };
+        var query = Object.keys(fields)
+          .filter(function (k) { return typeof fields[k] === 'string' && fields[k].trim(); })
+          .map(function (k) { return k + '=' + encodeURIComponent(fields[k].trim()); })
+          .join('&');
+        if (query) url += '?' + query;
+      } catch (e) {}
+      frame.src = url;
+    })();
+    </script>
   </section>
   <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
 </main>
